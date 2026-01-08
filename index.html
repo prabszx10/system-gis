@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoAuto Analysis</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style/styles.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">GeoAuto</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#features">Fitur</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2" href="#get-started">Mulai</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero d-flex align-items-center justify-content-center text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Analisis GIS Otomatis</h1>
+            <p class="lead">Unggah data spasial Anda dan dapatkan insight dalam sekejap.</p>
+            <div class="mt-4">
+                <button id="btn-start" class="btn btn-primary btn-lg me-2">Mulai Analisis</button>
+                <button id="btn-sample" class="btn btn-outline-light btn-lg">Download Sample</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features -->
+    <section id="features" class="py-5 text-center">
+        <div class="container">
+            <h2 class="fw-bold mb-3">Fitur Utama</h2>
+
+            <div class="row g-4 mt-4">
+
+                <!-- Upload -->
+                <div class="col-md-4 d-flex">
+                    <div class="card feature-card h-100 w-100 text-center">
+                        <div class="card-body">
+                            <div class="feature-icon">
+                                <!-- upload svg -->
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 16V4M12 4L7 9M12 4L17 9" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" />
+                                    <path d="M4 16V18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V16"
+                                        stroke="currentColor" stroke-width="2" />
+                                </svg>
+                            </div>
+                            <h5>Upload SHP / GeoJSON</h5>
+                            <p>Unggah file peta Anda untuk dianalisis secara otomatis.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analisis -->
+                <div class="col-md-4 d-flex">
+                    <div class="card feature-card h-100 w-100 text-center">
+                        <div class="card-body">
+                            <div class="feature-icon">
+                                <!-- speed svg -->
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 3V6" stroke="currentColor" stroke-width="2" />
+                                    <path d="M5.6 5.6L7.7 7.7" stroke="currentColor" stroke-width="2" />
+                                    <path d="M3 12H6" stroke="currentColor" stroke-width="2" />
+                                    <path d="M12 12L16 8" stroke="currentColor" stroke-width="2" />
+                                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                            </div>
+                            <h5>Analisis Cepat</h5>
+                            <p>Dapatkan hasil analisis hanya dalam beberapa detik.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export -->
+                <div class="col-md-4 d-flex">
+                    <div class="card feature-card h-100 w-100 text-center">
+                        <div class="card-body">
+                            <div class="feature-icon">
+                                <!-- export svg -->
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 8V20" stroke="currentColor" stroke-width="2" />
+                                    <path d="M12 20L7 15M12 20L17 15" stroke="currentColor" stroke-width="2" />
+                                    <path d="M4 4H20V8H4V4Z" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                            </div>
+                            <h5>Ekspor Hasil</h5>
+                            <p>Download laporan hasil untuk dibagikan atau dipresentasikan.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About / Description -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="row align-items-center gy-4">
+
+                <!-- TEXT -->
+                <div class="col-md-6">
+                    <h2 class="about-title">Tentang GeoAuto</h2>
+
+                    <p class="about-lead">
+                        GeoAuto adalah platform analisis data spasial berbasis web yang dirancang
+                        untuk menyederhanakan proses pengolahan data geografis tanpa perlu
+                        software GIS yang kompleks.
+                    </p>
+
+                    <p class="about-text">
+                        Dengan pendekatan otomatis dan antarmuka yang intuitif, GeoAuto memungkinkan
+                        pengguna mengunggah data SHP atau GeoJSON, menjalankan analisis secara instan,
+                        serta mengekspor hasilnya untuk kebutuhan laporan, perencanaan, dan
+                        pengambilan keputusan berbasis lokasi.
+                    </p>
+                </div>
+
+                <!-- VISUAL MAP -->
+                <div class="col-md-6">
+                    <div class="map-visual">
+                        <div class="map-grid"></div>
+                        <div class="map-pin"></div>
+                        <div class="map-pin secondary"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CTA -->
+    <section class="cta-wrapper py-5" id="get-started">
+        <div class="container">
+            <div class="cta-card text-center mx-auto">
+                <h2 class="fw-bold text-white mb-3">
+                    Siap Mengubah Data Spasial Menjadi Insight?
+                </h2>
+
+                <p class="cta-text mb-4">
+                    Unggah file SHP atau GeoJSON Anda dan dapatkan hasil analisis secara instan — tanpa instalasi
+                    software GIS yang rumit dan berat.
+                </p>
+
+                <button id="btn-upload" class="btn btn-light btn-lg px-4">
+                    Mulai Upload File
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-white text-center py-3">
+        <p class="mb-0">&copy; 2026 GeoAuto — All rights reserved</p>
+    </footer>
+
+    <!-- jQuery & Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="script/script.js"></script>
+
+</body>
+
+</html>

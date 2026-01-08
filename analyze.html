@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Analyze Data - GeoAuto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style/analyze.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">GeoAuto</a>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <section class="analyze-wrapper position-relative">
+        <div id="map-bg"></div>
+
+        <div class="container position-relative">
+            <div class="upload-card mx-auto text-center">
+                <div id="alert-area"></div>
+
+                <h2 class="fw-bold mb-2">Upload Data Spasial</h2>
+                <p class="text-muted mb-4">
+                    Upload file GIS Anda untuk dianalisis secara otomatis
+                </p>
+
+                <div id="drop-area" class="drop-area">
+                    <input type="file" id="fileInput" hidden>
+
+                    <div class="drop-content">
+                        <div class="icon mb-3">📂</div>
+                        <p class="mb-1 fw-semibold">Drag & drop file Anda di sini</p>
+                        <p class="text-muted small">atau klik untuk memilih file</p>
+                        <p class="text-muted small mt-2">
+                            Mendukung: <strong>SHP, GeoJSON, GPKG</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <button id="btn-analyze" class="btn btn-primary btn-lg mt-4 px-5">
+                    Analisis Sekarang
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <button id="btn-analyze" class="btn btn-primary btn-lg mt-4 px-5">
+        Analisis Sekarang
+    </button>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script/analyze.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</body>
+
+</html>

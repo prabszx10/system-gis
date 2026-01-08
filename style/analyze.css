@@ -1,0 +1,58 @@
+.analyze-wrapper {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* MAP */
+#map-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Overlay content */
+.upload-card {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  padding: 40px;
+  margin-top: 80px;
+
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* Optional dark overlay biar map ga terlalu rame */
+.analyze-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 18, 32, 0.45);
+  z-index: 1;
+}
+
+/* Drop area */
+.drop-area {
+  border: 2px dashed #cbd5e1;
+  border-radius: 16px;
+  padding: 40px 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: #fafcff;
+}
+
+.drop-area:hover {
+  background: #f1f5ff;
+  border-color: #0d6efd;
+}
+
+.drop-area.dragover {
+  background: #e9f0ff;
+  border-color: #0d6efd;
+}
+
+.icon {
+  font-size: 48px;
+}
