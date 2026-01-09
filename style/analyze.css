@@ -2,6 +2,18 @@
   min-height: 100vh;
   overflow: hidden;
 }
+/* Navbar transparent on top */
+.navbar-logo {
+  height: 50px;
+  /* ideal: 28–36px */
+  width: auto;
+}
+
+.navbar-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
 
 /* MAP */
 #map-bg {
@@ -55,4 +67,14 @@
 
 .icon {
   font-size: 48px;
+}
+
+@media (max-width: 768px) {
+  .navbar-title {
+    font-size: 12px;
+  }
+
+  .navbar-logo {
+    height: 40px;
+  }
 }
