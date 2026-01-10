@@ -80,16 +80,16 @@ $(function () {
     showLoading()
     try {
       if (fileInput[0].files.length === 0) {
-        throw { message : "Silakan pilih file .zip terlebih dahulu." };
+        throw { message: "Silakan pilih file .zip terlebih dahulu." };
 
       }
       const file = fileInput[0].files[0];
       if (!file.name.toLowerCase().endsWith('.zip')) {
-        throw { message : "File harus berekstensi .zip" };
+        throw { message: "File harus berekstensi .zip" };
       }
       const formData = new FormData();
       formData.append('file', file);
-      
+
       const response = await fetch('http://127.0.0.1:8000/analisis/', {
         method: 'POST',
         body: formData,
@@ -124,6 +124,7 @@ $(function () {
           <p><strong>Fakta Pola Ruang:</strong></p>
           ${faktaPolaRuangHtml}
           <p><strong>Fakta LP2B:</strong> ${data.detail_analisis.fakta_lp2b}</p>
+          <button id="btn-download-pdf" class="btn btn-success btn-lg mt-4 px-5"> Unduh Peta</button>
       `;
       resultDiv.html(reportHtml);
       $('#close_alert').click();
@@ -139,12 +140,26 @@ $(function () {
     }
     hideLoading();
   });
+
+
+  $(document).on('click', '#btn-download-pdf', function () {
+    console.log('download');
+  
+    const link = $('<a>')
+      .attr('href', 'document/Archive.zip')
+      .attr('download', 'Archive.zip')
+      .appendTo('body');
+  
+    link[0].click();
+    link.remove();
+  });
+
+  function showLoading() {
+    document.getElementById('loading-overlay').classList.remove('d-none');
+  }
+  
+  function hideLoading() {
+    document.getElementById('loading-overlay').classList.add('d-none');
+  }
+
 });
-
-function showLoading() {
-  document.getElementById('loading-overlay').classList.remove('d-none');
-}
-
-function hideLoading() {
-  document.getElementById('loading-overlay').classList.add('d-none');
-}
