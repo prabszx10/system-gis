@@ -3,6 +3,10 @@
   overflow: hidden;
 }
 /* Navbar transparent on top */
+.navbar{
+  z-index: 2;
+}
+
 .navbar-logo {
   height: 50px;
   /* ideal: 28–36px */
@@ -20,13 +24,14 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  background-color: #aad3df;
 }
 
 /* Overlay content */
 .upload-card {
   position: relative;
   z-index: 2;
-  max-width: 520px;
+  max-width: 800px;
   padding: 40px;
   margin-top: 80px;
 
@@ -67,6 +72,41 @@
 
 .icon {
   font-size: 48px;
+}
+
+/* preview analisis */
+#alert-area { margin-top: 30px;}
+#result { 
+  margin-top: 30px;
+  background-color: #f4f4f4; padding: 15px; border-radius: 5px; 
+  border-left: 5px solid #1a73e8; /* Garis biru di kiri */
+  text-align: left;
+  display: none;
+}
+#result h5 { margin-top: 0; color: #1a73e8}
+#result h3 { margin-top: 0; margin-bottom: 20px; text-align: center;}
+#result p { margin: 5px 0; }
+#result strong { color: #333; }
+#result ul { padding-left: 20px; }
+#result .rekomendasi-SESUAI { color: #1e8e3e; font-weight: bold; }
+#result .rekomendasi-SESUAI-BERSYARAT { color: #f9ab00; font-weight: bold; }
+#result .rekomendasi-TIDAK-SESUAI { color: #d93025; font-weight: bold; }
+
+#loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Warna hitam transparan */
+  z-index: 9999; /* Pastikan lebih tinggi dari Leaflet (z-index 1000) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-content {
+  text-align: center;
 }
 
 @media (max-width: 768px) {

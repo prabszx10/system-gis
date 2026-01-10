@@ -47,14 +47,14 @@ $(function () {
   function handleFile(file) {
     if (!file) return;
 
-    if (!validateFile(file)) {
-      $('#drop-area').addClass('error');
+    // if (!validateFile(file)) {
+    //   $('#drop-area').addClass('error');
 
-      showAlert(
-        'Format file tidak didukung. Gunakan <strong>SHP</strong>, <strong>GeoJSON</strong>, atau <strong>GPKG</strong>.'
-      );
-      return;
-    }
+    //   showAlert(
+    //     'Format file tidak didukung. Gunakan Format <strong>ZIP</strong>.'
+    //   );
+    //   return;
+    // }
 
     $('#drop-area').removeClass('error');
     $('#alert-area').html('');
@@ -77,18 +77,19 @@ $(function () {
   }
 
   $('#btn-analyze').on('click', async () => {
-    if (fileInput[0].files.length === 0) {
-      resultDiv.innerHTML = '<p>Silakan pilih file .zip terlebih dahulu.</p>';
-      return;
-    }
-
-    const file = fileInput[0].files[0];;
-    const formData = new FormData();
-    formData.append('file', file);
-
-    resultDiv.innerHTML = '<p>Mengirim file dan menganalisis... Mohon tunggu...</p>';
-
+    showLoading()
     try {
+      if (fileInput[0].files.length === 0) {
+        throw { message : "Silakan pilih file .zip terlebih dahulu." };
+
+      }
+      const file = fileInput[0].files[0];
+      if (!file.name.toLowerCase().endsWith('.zip')) {
+        throw { message : "File harus berekstensi .zip" };
+      }
+      const formData = new FormData();
+      formData.append('file', file);
+      
       const response = await fetch('http://127.0.0.1:8000/analisis/', {
         method: 'POST',
         body: formData,
@@ -114,20 +115,36 @@ $(function () {
       faktaPolaRuangHtml += '</ul>';
 
       const reportHtml = `
-          <h3>KESIMPULAN: <span class="${rekomendasiClass}">${data.rekomendasi}</span></h3>
+          <h3>Hasil Analisis<h3>
+          <h5>KESIMPULAN: <span class="${rekomendasiClass}">${data.rekomendasi}</span></h5>
           <p><strong>Alasan:</strong> ${data.alasan}</p>
           <hr>
-          <h4>Detail Analisis:</h4>
+          <h5>Detail Analisis:</h5>
           <p><strong>Total Luas Tanah:</strong> ${data.detail_analisis.total_luas_tanah_m2} m²</p>
           <p><strong>Fakta Pola Ruang:</strong></p>
           ${faktaPolaRuangHtml}
           <p><strong>Fakta LP2B:</strong> ${data.detail_analisis.fakta_lp2b}</p>
       `;
-
-      resultDiv.innerHTML = reportHtml;
-
+      resultDiv.html(reportHtml);
+      $('#close_alert').click();
+      resultDiv.show()
     } catch (error) {
-      resultDiv.innerHTML = `<p style="color: red;"><strong>Error:</strong> ${error.message}</p>`;
+      resultDiv.hide()
+      $('#alert-area').html(`
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          Error: ${error.message}
+          <button type="button" id="close_alert" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      `);
     }
+    hideLoading();
   });
 });
+
+function showLoading() {
+  document.getElementById('loading-overlay').classList.remove('d-none');
+}
+
+function hideLoading() {
+  document.getElementById('loading-overlay').classList.add('d-none');
+}
