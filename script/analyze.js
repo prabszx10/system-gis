@@ -3,6 +3,8 @@ $(function () {
   const fileInput = $('#fileInput');
   const resultDiv = $('#result');
 
+  $('#preview-modal').modal('show');
+
   const map = L.map("map-bg", {
     zoomControl: true,
     attributionControl: false
@@ -44,6 +46,26 @@ $(function () {
     return allowedExt.includes(ext);
   }
 
+  $('#button-download-shp').click(function() {
+    const link = $('<a>')
+        .attr('href', 'document/template_shp.zip')
+        .attr('download', 'template_shp.zip')
+        .appendTo('body');
+  
+    link[0].click();
+    link.remove();
+  });
+
+  $('#button-dismiss-modal').click(function() {
+    let checked = $('#checkbox_modal').prop('checked')
+
+    if(checked){
+      $('#preview-modal').modal('hide');
+    } else{
+      alert("Harap Centang Checkbox Persetujuan")
+    }
+  });
+
   function handleFile(file) {
     if (!file) return;
 
@@ -76,6 +98,7 @@ $(function () {
     `);
   }
 
+  var selectedFile = null;
   $('#btn-analyze').on('click', async () => {
     showLoading()
     try {
@@ -114,6 +137,16 @@ $(function () {
       });
       faktaPolaRuangHtml += '</ul>';
 
+      let penggunaanTanahHtml = '<ul>';
+      data.detail_analisis.penggunaan_tanah.forEach(item => {
+        penggunaanTanahHtml += `
+              <li>
+                  <strong>Penggunaan:</strong> ${item.p_lahan}<br>
+                  <strong>Luas:</strong> ${item.luas} m²
+              </li>`;
+      });
+      penggunaanTanahHtml += '</ul>';
+
       const reportHtml = `
           <h3>Hasil Analisis<h3>
           <h5>KESIMPULAN: <span class="${rekomendasiClass}">${data.rekomendasi}</span></h5>
@@ -124,9 +157,20 @@ $(function () {
           <p><strong>Fakta Pola Ruang:</strong></p>
           ${faktaPolaRuangHtml}
           <p><strong>Fakta LP2B:</strong> ${data.detail_analisis.fakta_lp2b}</p>
+          <p><strong>Batas Administrasi:</strong> Desa ${data.detail_analisis.batas_administrasi.desa} (Kecamantan ${data.detail_analisis.batas_administrasi.kecamatan})</p>
+          <p><strong>Penggunaan Tanah:</strong> ${penggunaanTanahHtml}</p>
+          <p><strong>Kemampuan Tanah:</strong> ${data.detail_analisis.kemampuan_tanah} </p>
+          <p><strong>Pola Ruang RTRW:</strong> ${data.detail_analisis.pola_ruang_rtrw} </p>
+          <p><strong>Ketersediaan Tanah:</strong> ${data.detail_analisis.ketersediaan_tanah} </p>
+          <p><strong>Simpulan Pertimbangan Teknis Pertanahan:</strong> ${data.detail_analisis.simpulan_ptp} </p>
           <button id="btn-download-pdf" class="btn btn-success btn-lg mt-4 px-5"> Unduh Peta</button>
       `;
       resultDiv.html(reportHtml);
+
+      $('#btn-download-pdf').off('click').on('click', function() {
+          prosesDanDownloadPertek(file); 
+      });
+
       $('#close_alert').click();
       resultDiv.show()
     } catch (error) {
@@ -141,18 +185,37 @@ $(function () {
     hideLoading();
   });
 
+async function prosesDanDownloadPertek(fileData) {
+    showLoading();
+    try {
+        const formData = new FormData();
+        formData.append('file', fileData);
 
-  $(document).on('click', '#btn-download-pdf', function () {
-    console.log('download');
-  
-    const link = $('<a>')
-      .attr('href', 'document/Archive.zip')
-      .attr('download', 'Archive.zip')
-      .appendTo('body');
-  
-    link[0].click();
-    link.remove();
-  });
+        const response = await fetch('http://127.0.0.1:8000/analisis-pertek/', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await response.json();
+
+        if (data.status === "Success" && data.base64_file) {
+            // Jalankan prosedur download Base64
+            const link = document.createElement('a');
+            link.href = `data:application/zip;base64,${data.base64_file}`;
+            link.download = data.file_name || "hasil_peta.zip";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            alert("Gagal memproses download: " + (data.message || "Data tidak lengkap"));
+        }
+    } catch (e) {
+        console.error(e);
+        alert("Terjadi kesalahan saat memproses peta.");
+    } finally {
+        hideLoading();
+    }
+}
 
   function showLoading() {
     document.getElementById('loading-overlay').classList.remove('d-none');
