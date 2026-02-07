@@ -149,13 +149,11 @@ $(function () {
 
       const reportHtml = `
           <h3>Hasil Analisis<h3>
-          <h5>KESIMPULAN: <span class="${rekomendasiClass}">${data.rekomendasi}</span></h5>
+          <h5>REVIEW BIDANG TANAH</span></h5>
           <p><strong>Alasan:</strong> ${data.alasan}</p>
           <hr>
           <h5>Detail Analisis:</h5>
           <p><strong>Total Luas Tanah:</strong> ${data.detail_analisis.total_luas_tanah_m2} m²</p>
-          <p><strong>Fakta Pola Ruang:</strong></p>
-          ${faktaPolaRuangHtml}
           <p><strong>Fakta LP2B:</strong> ${data.detail_analisis.fakta_lp2b}</p>
           <p><strong>Batas Administrasi:</strong> Desa ${data.detail_analisis.batas_administrasi.desa} (Kecamantan ${data.detail_analisis.batas_administrasi.kecamatan})</p>
           <p><strong>Penggunaan Tanah:</strong> ${penggunaanTanahHtml}</p>
